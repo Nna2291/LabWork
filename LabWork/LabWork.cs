@@ -16,12 +16,15 @@ namespace LabWork
     {
         private const string File = "";
 
+        
+
         public LabWork()
         {
             InitializeComponent();
             openFileDialog1.Filter = "Lab files(*.lab)|*.lab|All files(*.*)|*.*";
             
         }
+
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -40,17 +43,17 @@ namespace LabWork
             window.Show();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void Button2_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             string filename = openFileDialog1.FileName;
-            using (StreamReader r = new StreamReader(filename)) {
+            using (StreamReader r = new(filename)) {
                 string json = r.ReadToEnd();
                 List<Labaratory> items = JsonConvert.DeserializeObject<List<Labaratory>>(json);
                 Labaratory conte = items[0];
                 NewWork window = new(filename, conte);
-                this.Hide();
+                Hide();
                 window.Show();
             }
         }

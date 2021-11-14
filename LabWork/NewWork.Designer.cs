@@ -37,9 +37,11 @@ namespace LabWork
             this.Exp1 = new System.Windows.Forms.Button();
             this.InfoButton = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.Export = new System.Windows.Forms.Button();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.mainInfoPanel1 = new MainInfoPanel();
-            this.exp2 = new Exp();
+            this.experiment1 = new Force();
+            this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -86,6 +88,7 @@ namespace LabWork
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(400, 939);
             this.panel1.TabIndex = 12;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // Exp1
             // 
@@ -94,7 +97,7 @@ namespace LabWork
             this.Exp1.Name = "Exp1";
             this.Exp1.Size = new System.Drawing.Size(400, 91);
             this.Exp1.TabIndex = 1;
-            this.Exp1.Text = "Опыт №1";
+            this.Exp1.Text = "Лабораторная работа на динамику";
             this.Exp1.UseVisualStyleBackColor = true;
             this.Exp1.Click += new System.EventHandler(this.Exp1_Click);
             // 
@@ -105,12 +108,13 @@ namespace LabWork
             this.InfoButton.Name = "InfoButton";
             this.InfoButton.Size = new System.Drawing.Size(400, 91);
             this.InfoButton.TabIndex = 0;
-            this.InfoButton.Text = "Основная информация";
+            this.InfoButton.Text = "Титульный лист";
             this.InfoButton.UseVisualStyleBackColor = true;
             this.InfoButton.Click += new System.EventHandler(this.InfoButton_Click);
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.Export);
             this.panel2.Controls.Add(this.back);
             this.panel2.Controls.Add(this.SaveButton);
             this.panel2.Controls.Add(this.SavwAs);
@@ -120,6 +124,17 @@ namespace LabWork
             this.panel2.Size = new System.Drawing.Size(2244, 64);
             this.panel2.TabIndex = 13;
             // 
+            // Export
+            // 
+            this.Export.Dock = System.Windows.Forms.DockStyle.Left;
+            this.Export.Location = new System.Drawing.Point(798, 0);
+            this.Export.Name = "Export";
+            this.Export.Size = new System.Drawing.Size(266, 64);
+            this.Export.TabIndex = 12;
+            this.Export.Text = "Экспорт в pdf";
+            this.Export.UseVisualStyleBackColor = true;
+            this.Export.Click += new System.EventHandler(this.Export_Click);
+            // 
             // mainInfoPanel1
             // 
             this.mainInfoPanel1.AimText = "";
@@ -128,19 +143,20 @@ namespace LabWork
             this.mainInfoPanel1.grouptext = "";
             this.mainInfoPanel1.LabNameText = "";
             this.mainInfoPanel1.lastnametext = "";
-            this.mainInfoPanel1.Location = new System.Drawing.Point(400, 0);
+            this.mainInfoPanel1.Location = new System.Drawing.Point(406, -18);
             this.mainInfoPanel1.Name = "mainInfoPanel1";
             this.mainInfoPanel1.nametext = "";
             this.mainInfoPanel1.Size = new System.Drawing.Size(2244, 869);
             this.mainInfoPanel1.TabIndex = 14;
             // 
-            // exp2
+            // experiment1
             // 
-            this.exp2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.exp2.Location = new System.Drawing.Point(1044, 70);
-            this.exp2.Name = "exp2";
-            this.exp2.Size = new System.Drawing.Size(1142, 676);
-            this.exp2.TabIndex = 15;
+            this.experiment1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.experiment1.Location = new System.Drawing.Point(400, 0);
+            this.experiment1.Name = "experiment1";
+            this.experiment1.Size = new System.Drawing.Size(2241, 880);
+            this.experiment1.TabIndex = 15;
+            this.experiment1.Load += new System.EventHandler(this.experiment1_Load_1);
             // 
             // NewWork
             // 
@@ -148,7 +164,7 @@ namespace LabWork
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.ClientSize = new System.Drawing.Size(2644, 939);
-            this.Controls.Add(this.exp2);
+            this.Controls.Add(this.experiment1);
             this.Controls.Add(this.mainInfoPanel1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
@@ -173,6 +189,8 @@ namespace LabWork
         private Panel panel2;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private MainInfoPanel mainInfoPanel1;
-        private Exp exp2;
+        private Button Export;
+        private Force experiment1;
+        private SaveFileDialog saveFileDialog2;
     }
 }
