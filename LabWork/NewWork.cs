@@ -4,9 +4,7 @@ using System.IO;
 using System.Text;
 using System.Windows.Forms;
 using Newtonsoft.Json;
-using PdfSharp.Drawing;
-using PdfSharp.Pdf;
-using PdfSharp.Pdf.IO;
+
 
 namespace LabWork
 {
@@ -111,42 +109,6 @@ namespace LabWork
 
         private void Export_Click(object sender, EventArgs e)
         {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            // Create a new PDF document
-            PdfDocument document = new PdfDocument();
-            document.Info.Title = mainInfoPanel1.LabNameText;
-
-            // Create an empty page
-            PdfPage page = document.AddPage();
-
-            // Get an XGraphics object for drawing
-            XGraphics gfx = XGraphics.FromPdfPage(page);
-
-            // Create a font
-            XFont font = new XFont("Verdana", 20, XFontStyle.BoldItalic);
-
-            string[] data = { mainInfoPanel1.LabNameText,
-                mainInfoPanel1.nametext,
-                mainInfoPanel1.lastnametext,
-                mainInfoPanel1.grouptext,
-                mainInfoPanel1.AimText,
-                mainInfoPanel1.EquipmentText
-                  };
-
-            int j = 0;
-            foreach(string learn in data) {
-                gfx.DrawString(learn, font, XBrushes.Black,
-                      new XRect(0, 0, page.Width, page.Height + j),
-                      XStringFormats.Center);
-                j += 65;
-            }
-                
-
-            
-
-            
-            
-            document.Save(@"C:\Users\Коля\Documents\ex.pdf");
 
         }
 

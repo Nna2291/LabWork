@@ -10,7 +10,8 @@
     <PackageReference Include="Analytics" Version="3.8.0" />
     <PackageReference Include="MathParser.org-mXparser" Version="4.4.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="PdfSharp" Version="1.50.5147" />
+    <PackageReference Include="OxyPlot.Core" Version="2.1.0" />
+    <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.0" />
     <PackageReference Include="WpfMath" Version="0.11.0" />
   </ItemGroup>
 
