@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LabWork
+namespace Application
 {
     public partial class MainInfoPanel : UserControl
     {
@@ -58,6 +58,11 @@ namespace LabWork
         }
 
         private void MainInfoPanel_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Final_TextChanged(object sender, EventArgs e)
         {
 
         }

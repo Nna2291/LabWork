@@ -1,30 +1,28 @@
-﻿using OxyPlot;
+﻿using Microsoft.Graph;
+using OxyPlot;
+using OxyPlot.Axes;
 using OxyPlot.Series;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace LabWork
+namespace Application
 {
     
     public partial class Force : UserControl
     {
-        
         public Force()
         {
-            InitializeComponent();
+            InitializeComponent();               
         }
-
+        
         List<Science> dimension = new();
         DataTable table = new();
 
-        internal List<Science> Dimension { get => dimension; set => dimension = value; }
+      
+        public List<Science> Dimension { get => dimension; set => dimension = value; }
         public DataTable Table { get => table; set => table = value; }
 
         private void Force_Load(object sender, EventArgs e)
@@ -33,20 +31,109 @@ namespace LabWork
             Table.Columns.Add("Число грузов", typeof(string));
             Table.Columns.Add("Сила нормальной реакции опоры N, Н", typeof(string));
             Table.Columns.Add("Сила трения F, H", typeof(string));
+            var model = new PlotModel
+            {
+                PlotAreaBorderColor = OxyColors.White,
+                TextColor = OxyColors.White,
+                TitleColor = OxyColors.White,
+                SubtitleColor = OxyColors.White,
+            };
+            model.Axes.Add
+                (
+                new LinearAxis 
+                { 
+                    Position = AxisPosition.Bottom,
+                    Title = "F тр, Н" 
+                }
+                );
+            model.Axes.Add
+                (
+                    new LinearAxis 
+                    { 
+                        Position = AxisPosition.Left,
+                        Title = "N, Н"
+                    }
+                );
+            if (Dimension != null)
+            {
+                var scatterSeries = new ScatterSeries
+                {
+                    MarkerFill = OxyColor.Parse("#FFCB21"),
+                    MarkerType = MarkerType.Square
+                };
+                const int size = 3;
+                foreach (Science values in Dimension)
+                {
+                Table.Rows.Add(values.Type_road, values.Number, values.Normal_reaction, values.Force);
+                    scatterSeries.Points.Add(new ScatterPoint(
+                        values.Normal_reaction_graph - Convert.ToDouble(values.Pogr_N),
+                        values.Force_graph - Convert.ToDouble(values.Pogr_F),
+                        size,
+                        size));
 
+                    scatterSeries.Points.Add(new ScatterPoint(
+                        values.Normal_reaction_graph - Convert.ToDouble(values.Pogr_N),
+                        values.Force_graph + Convert.ToDouble(values.Pogr_F),
+                        size,
+                        size));
+
+                    scatterSeries.Points.Add(new ScatterPoint(
+                        values.Normal_reaction_graph + Convert.ToDouble(values.Pogr_N),
+                        values.Force_graph - Convert.ToDouble(values.Pogr_F),
+                        size,
+                        size));
+
+                    scatterSeries.Points.Add(new ScatterPoint(
+                        values.Normal_reaction_graph,
+                        values.Force_graph - Convert.ToDouble(values.Pogr_F),
+                        size,
+                        size));
+
+                    scatterSeries.Points.Add(new ScatterPoint(
+                        values.Normal_reaction_graph - Convert.ToDouble(values.Pogr_N),
+                        values.Force_graph,
+                        size,
+                        size));
+
+                    scatterSeries.Points.Add(new ScatterPoint(
+                        values.Normal_reaction_graph + Convert.ToDouble(values.Pogr_N),
+                        values.Force_graph,
+                        size,
+                        size));
+
+                    scatterSeries.Points.Add(new ScatterPoint(
+                        values.Normal_reaction_graph + Convert.ToDouble(values.Pogr_N),
+                        values.Force_graph + Convert.ToDouble(values.Pogr_F),
+                        size,
+                        size));
+
+                    scatterSeries.Points.Add(new ScatterPoint(
+                        values.Normal_reaction_graph,
+                        values.Force_graph + Convert.ToDouble(values.Pogr_F),
+                        size,
+                        size));
+                    
+                }
+                model.Series.Add(scatterSeries);
+                plotView1.Model = model;
+                
+            }
+            else
+            {
+                Dimension = new();
+            }
             dataGridView1.DataSource = Table;
-            
         }
 
         private void update_Click_1(object sender, EventArgs e)
         {
             try
             {
-               string _temp = Normal_force.Text;
+                string _temp = Normal_force.Text;
                 Normal_force.Text = _temp.Replace(".", ",");
             }
             catch (Exception)
-            {}
+            { }
             try
             {
                 string _temp = plu_1.Text;
@@ -67,7 +154,7 @@ namespace LabWork
                 Force_tr.Text = _temp.Replace(".", ",");
             }
             catch (Exception)
-            {}
+            { }
             if (!Normal_force.Text.Contains(","))
             {
                 Normal_force.Text += ",";
@@ -125,102 +212,131 @@ namespace LabWork
             }
             catch (ArgumentOutOfRangeException)
             {
-                error.Text = "Некорректный ввод данных!\nПовторите измерения";
                 return;
             }
-            
 
-            
-            Dimension.Add(new Science(road_text.Text, number_weights.Text, $"{Normal_force.Text} +- {plu_1.Text}",
-                Convert.ToDouble(Normal_force.Text), $"{Force_tr.Text} +- {plu_2.Text}", Convert.ToDouble(Force_tr.Text)));
+
+
+            Dimension.Add(new Science(road_text.Text,
+                number_weights.Text,
+                Convert.ToDouble(plu_1.Text),
+                Convert.ToDouble(plu_2.Text),
+                $"{Normal_force.Text} ± {plu_1.Text}",
+                Convert.ToDouble(Normal_force.Text),
+                $"{Force_tr.Text} ± {plu_2.Text}",
+                Convert.ToDouble(Force_tr.Text)));
 
 
             Science dim = Dimension[^1];
-        Table.Rows.Add(dim.Type_road, dim.Number, dim.Normal_reaction, dim.Force);
-        road_text.Text = "";
-        number_weights.Text = "";
-        Normal_force.Text = "";
-        Force_tr.Text = "";
-         var myModel = new PlotModel
-        {
-            Title = "Example 1",
-            PlotAreaBorderColor = OxyColors.White,
-            TextColor = OxyColors.White,
-            TitleColor = OxyColors.White,
-            SubtitleColor = OxyColors.White,
-            PlotAreaBackground = OxyColors.Undefined,
-        };
+            Table.Rows.Add(dim.Type_road, dim.Number, dim.Normal_reaction, dim.Force);
+            number_weights.Text = "";
+            Normal_force.Text = "";
+            Force_tr.Text = "";
 
-            int size = 3;
-            var scatterSeries = new ScatterSeries { MarkerType = MarkerType.Square };
-            foreach (Science values in Dimension)
-   
+            var model = new PlotModel
             {
+                Title = "Example 1",
+                PlotAreaBorderColor = OxyColors.White,
+                TextColor = OxyColors.White,
+                TitleColor = OxyColors.White,
+                SubtitleColor = OxyColors.White,
+            };
+            int size = 3;
+            var scatterSeries = new ScatterSeries
+            {
+                MarkerFill = OxyColor.Parse("#FFCB21"),
+                MarkerType = MarkerType.Square
+            };
+            foreach (Science values in dimension)
+            {
+
                 scatterSeries.Points.Add(new ScatterPoint(
-                    values.Normal_reaction_graph - Convert.ToDouble(plu_1.Text), 
-                    values.Force_graph - Convert.ToDouble(plu_1.Text), 
+                    values.Normal_reaction_graph - Convert.ToDouble(plu_1.Text),
+                    values.Force_graph - Convert.ToDouble(plu_2.Text),
                     size,
                     size));
 
                 scatterSeries.Points.Add(new ScatterPoint(
                     values.Normal_reaction_graph - Convert.ToDouble(plu_1.Text),
-                    values.Force_graph + Convert.ToDouble(plu_1.Text),
+                    values.Force_graph + Convert.ToDouble(plu_2.Text),
                     size,
                     size));
 
                 scatterSeries.Points.Add(new ScatterPoint(
                     values.Normal_reaction_graph + Convert.ToDouble(plu_1.Text),
-                    values.Force_graph - Convert.ToDouble(plu_1.Text),
+                    values.Force_graph - Convert.ToDouble(plu_2.Text),
                     size,
                     size));
 
                 scatterSeries.Points.Add(new ScatterPoint(
-                    values.Normal_reaction_graph + Convert.ToDouble(plu_1.Text),
-                    values.Force_graph + Convert.ToDouble(plu_1.Text),
+                    values.Normal_reaction_graph,
+                    values.Force_graph - Convert.ToDouble(plu_2.Text),
                     size,
                     size));
-            }
-            myModel.Series.Add(scatterSeries);
-        plotView1.Model = myModel;
-            error.Text = "";
+
+                scatterSeries.Points.Add(new ScatterPoint(
+                   values.Normal_reaction_graph - Convert.ToDouble(plu_1.Text),
+                   values.Force_graph,
+                   size,
+                   size));
+
+                scatterSeries.Points.Add(new ScatterPoint(
+                   values.Normal_reaction_graph + Convert.ToDouble(plu_1.Text),
+                   values.Force_graph,
+                   size,
+                   size));
+
+                scatterSeries.Points.Add(new ScatterPoint(
+                   values.Normal_reaction_graph + Convert.ToDouble(plu_1.Text),
+                   values.Force_graph + Convert.ToDouble(plu_2.Text),
+                   size,
+                   size));
+
+                scatterSeries.Points.Add(new ScatterPoint(
+                   values.Normal_reaction_graph,
+                   values.Force_graph + Convert.ToDouble(plu_2.Text),
+                   size,
+                   size));
+
+                scatterSeries.Points.Add(new ScatterPoint(
+                   values.Normal_reaction_graph + Convert.ToDouble(plu_1.Text),
+                   values.Force_graph + Convert.ToDouble(plu_2.Text),
+                   size,
+                   size));
+           }
+            model.Title = dim.Type_road;
+            model.Series.Add(scatterSeries);
+            plotView1.Model = model;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            Func<double, double> kx = (x) => dimension[^1].Force_graph / dimension[^1].Normal_reaction_graph * x;
-            plotView1.Model.Series.Add(new FunctionSeries(kx, 0, 1000, 0.1, "y = kx"));
-            
+            List<double> D = new();
+            List<double> B = new();
+            List<double> C = new();
+            foreach (Science el in dimension)
+            {
+                D.Add((el.Force_graph - el.Pogr_F) /
+                    (el.Normal_reaction_graph + el.Pogr_N));
+                B.Add((el.Force_graph + el.Pogr_F) /
+                    (el.Normal_reaction_graph - el.Pogr_N));
+                C.Add(el.Normal_reaction_graph);
+            }
+            double d_final = D.Max();
+            double b_final = B.Min();
+            double c_final = C.Max();
+            Func<double, double> kx = (x) => (d_final + b_final) / 2 * x;
+            plotView1.Model.Series.Add(new FunctionSeries(kx, 0, c_final + 1, 0.1, "y = kx"));
         }
 
-        
-    }
-
-    class Science
-    {
-        private string type_road;
-        private string number;
-        private string normal_reaction;
-        private double normal_reaction_graph;
-        private string force;
-        private double force_graph;
-
-        public string Type_road { get => type_road; set => type_road = value; }
-        public string Number { get => number; set => number = value; }
-        public string Normal_reaction { get => normal_reaction; set => normal_reaction = value; }
-        public double Normal_reaction_graph { get => normal_reaction_graph; set => normal_reaction_graph = value; }
-        public string Force { get => force; set => force = value; }
-        public double Force_graph { get => force_graph; set => force_graph = value; }
-
-        public Science(string _type_road, string _number, string _normal_reaction, 
-            double _normal_reaction_graph, string _force, double _force_graph)
+        private void plotView1_Click(object sender, EventArgs e)
         {
-            Type_road = _type_road;
-            Number = _number;
-            Normal_reaction = _normal_reaction;
-            Force = _force;
-            Normal_reaction_graph = _normal_reaction_graph;
-            Force_graph = _force_graph;
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

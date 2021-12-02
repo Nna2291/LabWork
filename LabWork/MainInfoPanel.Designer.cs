@@ -1,5 +1,5 @@
 ﻿
-namespace LabWork
+namespace Application
 {
     partial class MainInfoPanel
     {
@@ -37,6 +37,8 @@ namespace LabWork
             this.group = new System.Windows.Forms.TextBox();
             this.lastname = new System.Windows.Forms.TextBox();
             this.name = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.Final = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // Label
@@ -45,7 +47,7 @@ namespace LabWork
             this.Label.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.Label.ForeColor = System.Drawing.SystemColors.ActiveBorder;
             this.Label.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.Label.Location = new System.Drawing.Point(792, 357);
+            this.Label.Location = new System.Drawing.Point(710, 357);
             this.Label.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
             this.Label.Name = "Label";
             this.Label.Size = new System.Drawing.Size(261, 45);
@@ -56,7 +58,7 @@ namespace LabWork
             // 
             // EquipmentField
             // 
-            this.EquipmentField.Location = new System.Drawing.Point(792, 438);
+            this.EquipmentField.Location = new System.Drawing.Point(710, 438);
             this.EquipmentField.Name = "EquipmentField";
             this.EquipmentField.Size = new System.Drawing.Size(562, 376);
             this.EquipmentField.TabIndex = 59;
@@ -127,11 +129,36 @@ namespace LabWork
             this.name.TabIndex = 53;
             this.name.TextChanged += new System.EventHandler(this.name_TextChanged);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Segoe UI Black", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label2.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label2.Location = new System.Drawing.Point(1394, 357);
+            this.label2.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(131, 45);
+            this.label2.TabIndex = 62;
+            this.label2.Text = "Вывод";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // Final
+            // 
+            this.Final.Location = new System.Drawing.Point(1394, 438);
+            this.Final.Name = "Final";
+            this.Final.Size = new System.Drawing.Size(562, 376);
+            this.Final.TabIndex = 61;
+            this.Final.Text = "";
+            this.Final.TextChanged += new System.EventHandler(this.Final_TextChanged);
+            // 
             // MainInfoPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.Final);
             this.Controls.Add(this.Label);
             this.Controls.Add(this.EquipmentField);
             this.Controls.Add(this.label1);
@@ -176,6 +203,7 @@ namespace LabWork
             get { return group.Text; }
             set { group.Text = value; }
         }
+
         private System.Windows.Forms.TextBox lastname;
         public string lastnametext
         {
@@ -183,6 +211,13 @@ namespace LabWork
             set { lastname.Text = value; }
         }
         private System.Windows.Forms.TextBox name;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox Final;
+        public string Finaltext
+        {
+            get { return Final.Text; }
+            set { Final.Text = value; }
+        }
         public string nametext
         {
             get { return name.Text; }
