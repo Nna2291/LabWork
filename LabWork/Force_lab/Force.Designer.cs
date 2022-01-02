@@ -40,6 +40,7 @@ namespace Application
             this.update = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.plotView1 = new OxyPlot.WindowsForms.PlotView();
+            this.error = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -51,7 +52,7 @@ namespace Application
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ButtonFace;
-            this.dataGridView1.Location = new System.Drawing.Point(23, 534);
+            this.dataGridView1.Location = new System.Drawing.Point(23, 638);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 82;
             this.dataGridView1.RowTemplate.Height = 41;
@@ -108,9 +109,9 @@ namespace Application
             // 
             this.button1.Location = new System.Drawing.Point(23, 417);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 46);
+            this.button1.Size = new System.Drawing.Size(340, 46);
             this.button1.TabIndex = 8;
-            this.button1.Text = "button1";
+            this.button1.Text = "Построить график";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -127,9 +128,9 @@ namespace Application
             // 
             this.update.Location = new System.Drawing.Point(23, 343);
             this.update.Name = "update";
-            this.update.Size = new System.Drawing.Size(150, 46);
+            this.update.Size = new System.Drawing.Size(340, 46);
             this.update.TabIndex = 10;
-            this.update.Text = "button2";
+            this.update.Text = "Добавить измерение";
             this.update.UseVisualStyleBackColor = true;
             this.update.Click += new System.EventHandler(this.update_Click_1);
             // 
@@ -158,11 +159,23 @@ namespace Application
             this.plotView1.ZoomVerticalCursor = System.Windows.Forms.Cursors.SizeNS;
             this.plotView1.Click += new System.EventHandler(this.plotView1_Click);
             // 
+            // error
+            // 
+            this.error.AutoSize = true;
+            this.error.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.error.ForeColor = System.Drawing.Color.Firebrick;
+            this.error.Location = new System.Drawing.Point(23, 513);
+            this.error.Name = "error";
+            this.error.Size = new System.Drawing.Size(0, 54);
+            this.error.TabIndex = 13;
+            this.error.Click += new System.EventHandler(this.label1_Click);
+            // 
             // Force
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.Controls.Add(this.error);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.update);
@@ -197,5 +210,6 @@ namespace Application
         private System.Windows.Forms.Button update;
         private System.Windows.Forms.Panel panel1;
         private OxyPlot.WindowsForms.PlotView plotView1;
+        private System.Windows.Forms.Label error;
     }
 }

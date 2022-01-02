@@ -1,11 +1,19 @@
 ﻿using DotLiquid;
-using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Application
 {
+    public class ScienceException : System.Exception
+    {
+        public ScienceException(string message)
+        {
+            MessageBox.Show(message, "Ошибка",
+            MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-    public class ForHTML: Drop
+        }
+    }
+    public class ForHTML : Drop
     {
         private string _fn;
         private string _sn;
@@ -21,7 +29,7 @@ namespace Application
         public string Name { get => _n; set => _n = value; }
         public string Group { get => _g; set => _g = value; }
 
-        public ForHTML(string first_name, string second_name, string equipment, string aim, string name, string group) 
+        public ForHTML(string first_name, string second_name, string equipment, string aim, string name, string group)
         {
             FirstName = first_name;
             SecondName = second_name;
@@ -76,6 +84,10 @@ namespace Application
         public string Aim { get; set; }
         public string Equipment { get; set; }
         public List<Science> Dim { get; set; }
+        public string Length { get; set; }
+        public string Height { get; set; }
+        public string LengthPogr { get; set; }
+        public string HeightPogr { get; set; }
 
 
     }

@@ -1,14 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace Application
@@ -17,24 +10,25 @@ namespace Application
     {
         private const string File = "";
 
-        
+
 
         public LabWork()
         {
             InitializeComponent();
             comboBox1.Items.Add("Сила трения");
             openFileDialog1.Filter = "Lab files(*.lab)|*.lab|All files(*.*)|*.*";
-            
+
         }
 
 
-        
+
         private void Button2_Click(object sender, EventArgs e)
         {
             if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             string filename = openFileDialog1.FileName;
-            using (StreamReader r = new(filename)) {
+            using (StreamReader r = new(filename))
+            {
                 string json = r.ReadToEnd();
                 List<Labaratory> items = JsonConvert.DeserializeObject<List<Labaratory>>(json);
                 Labaratory conte = items[0];
@@ -68,12 +62,23 @@ namespace Application
                         Group = File,
                         Name = File,
                         Aim = File,
-                        Equipment = File
-                    }); 
+                        Equipment = File,
+                        Length = File,
+                        Height = File,
+                        LengthPogr = File,
+                        HeightPogr = File
+                    });
                     Hide();
                     window.Show();
                     break;
             }
+        }
+
+        private void instruments_Click(object sender, EventArgs e)
+        {
+            Instrument instrument = new();
+            Hide();
+            instrument.Show();
         }
     }
 }

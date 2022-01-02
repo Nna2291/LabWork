@@ -7,15 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Analytics" Version="3.8.0" />
     <PackageReference Include="DotLiquid" Version="2.2.585" />
-    <PackageReference Include="IronPdf" Version="2021.11.4257" />
-    <PackageReference Include="MathParser.org-mXparser" Version="4.4.2" />
-    <PackageReference Include="Microsoft.Graph" Version="4.11.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="OxyPlot.Core" Version="2.1.0" />
     <PackageReference Include="OxyPlot.WindowsForms" Version="2.1.0" />
-    <PackageReference Include="sautinsoft.document" Version="5.3.6.22" />
     <PackageReference Include="WpfMath" Version="0.11.0" />
   </ItemGroup>
 

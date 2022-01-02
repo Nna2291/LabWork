@@ -1,5 +1,4 @@
-﻿using Microsoft.Graph;
-using OxyPlot;
+﻿using OxyPlot;
 using OxyPlot.Axes;
 using OxyPlot.Series;
 using System;
@@ -10,18 +9,17 @@ using System.Windows.Forms;
 
 namespace Application
 {
-    
     public partial class Force : UserControl
     {
         public Force()
         {
-            InitializeComponent();               
+            InitializeComponent();
         }
-        
+
         List<Science> dimension = new();
         DataTable table = new();
 
-      
+
         public List<Science> Dimension { get => dimension; set => dimension = value; }
         public DataTable Table { get => table; set => table = value; }
 
@@ -40,16 +38,16 @@ namespace Application
             };
             model.Axes.Add
                 (
-                new LinearAxis 
-                { 
+                new LinearAxis
+                {
                     Position = AxisPosition.Bottom,
-                    Title = "F тр, Н" 
+                    Title = "F тр, Н"
                 }
                 );
             model.Axes.Add
                 (
-                    new LinearAxis 
-                    { 
+                    new LinearAxis
+                    {
                         Position = AxisPosition.Left,
                         Title = "N, Н"
                     }
@@ -64,7 +62,7 @@ namespace Application
                 const int size = 3;
                 foreach (Science values in Dimension)
                 {
-                Table.Rows.Add(values.Type_road, values.Number, values.Normal_reaction, values.Force);
+                    Table.Rows.Add(values.Type_road, values.Number, values.Normal_reaction, values.Force);
                     scatterSeries.Points.Add(new ScatterPoint(
                         values.Normal_reaction_graph - Convert.ToDouble(values.Pogr_N),
                         values.Force_graph - Convert.ToDouble(values.Pogr_F),
@@ -112,11 +110,11 @@ namespace Application
                         values.Force_graph + Convert.ToDouble(values.Pogr_F),
                         size,
                         size));
-                    
+
                 }
                 model.Series.Add(scatterSeries);
                 plotView1.Model = model;
-                
+
             }
             else
             {
@@ -127,6 +125,17 @@ namespace Application
 
         private void update_Click_1(object sender, EventArgs e)
         {
+            if (Normal_force.Text == "" | plu_1.Text == "" | plu_2.Text == "" | Force_tr.Text == "")
+            {
+                try
+                {
+                    throw new ScienceException("Введите силу нормальной реакции опоры, силу трения и погрешность");
+                }
+                catch (ScienceException)
+                {
+                    return;
+                }
+            }
             try
             {
                 string _temp = Normal_force.Text;
@@ -303,7 +312,7 @@ namespace Application
                    values.Force_graph + Convert.ToDouble(plu_2.Text),
                    size,
                    size));
-           }
+            }
             model.Title = dim.Type_road;
             model.Series.Add(scatterSeries);
             plotView1.Model = model;
@@ -322,6 +331,21 @@ namespace Application
                     (el.Normal_reaction_graph - el.Pogr_N));
                 C.Add(el.Normal_reaction_graph);
             }
+            try
+            {
+                double jss = D.Max();
+            }
+            catch (InvalidOperationException)
+            {
+                try
+                {
+                    throw new ScienceException("Отсутствуют данные");
+                }
+                catch (ScienceException)
+                {
+                    return;
+                }
+            }
             double d_final = D.Max();
             double b_final = B.Min();
             double c_final = C.Max();
@@ -335,6 +359,11 @@ namespace Application
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }

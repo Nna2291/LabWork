@@ -32,6 +32,7 @@ namespace Application
             this.button2 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.instruments = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button2
@@ -59,11 +60,23 @@ namespace Application
             this.comboBox1.Text = "Создать новую работу";
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
+            // instruments
+            // 
+            this.instruments.Location = new System.Drawing.Point(682, 508);
+            this.instruments.Margin = new System.Windows.Forms.Padding(4);
+            this.instruments.Name = "instruments";
+            this.instruments.Size = new System.Drawing.Size(307, 44);
+            this.instruments.TabIndex = 3;
+            this.instruments.Text = "Инструменты";
+            this.instruments.UseVisualStyleBackColor = true;
+            this.instruments.Click += new System.EventHandler(this.instruments_Click);
+            // 
             // LabWork
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1695, 813);
+            this.Controls.Add(this.instruments);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.button2);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -78,6 +91,7 @@ namespace Application
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button instruments;
     }
 }
 

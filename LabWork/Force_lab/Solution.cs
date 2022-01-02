@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 
 using System.Windows.Forms;
@@ -10,21 +9,21 @@ namespace Application
 {
     public partial class Solution : UserControl
     {
-        public Force mpo;  
+        public Force mpo;
         public Solution()
         {
 
-            InitializeComponent();      
+            InitializeComponent();
         }
-        
+
         private void button1_Click(object sender, EventArgs e)
-        { 
+        {
             string latex = @"\color{white}{
                 F_t = F \text{ трения}\\\\
                 F_t=\mu N\\\\
                 \mu = \frac{F_t}{N}\\\\
                 \mu_{max} = \frac{F_{t max}}{N_{min}}\text{      }\mu_{min} = \frac{F_{t min}}{N_{max}}\\\\
-                \mu_{max} = \frac{"+$"{mpo.Dimension[^1].Force_graph}"+@"}{N_{min}}\text{      }\mu_{min} = \frac{F_{t min}}{N_{max}}\\\\
+                \mu_{max} = \frac{" + $"{mpo.Dimension[^1].Force_graph}" + @"}{N_{min}}\text{      }\mu_{min} = \frac{F_{t min}}{N_{max}}\\\\
                 
                 }";
             string fileName = @"..\formula.png";
