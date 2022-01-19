@@ -235,7 +235,7 @@ namespace Application
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelmenu);
             this.Name = "Force_work";
-            this.Text = "Force_work";
+            this.Text = "Сила трения";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Force_work_FormClosing);
             this.Load += new System.EventHandler(this.Force_work_Load);
             this.panelmenu.ResumeLayout(false);

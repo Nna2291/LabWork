@@ -13,34 +13,7 @@ namespace Application
 
         }
     }
-    public class ForHTML : Drop
-    {
-        private string _fn;
-        private string _sn;
-        private string _eq;
-        private string _aim;
-        private string _n;
-        private string _g;
-
-        public string FirstName { get => _fn; set => _fn = value; }
-        public string SecondName { get => _sn; set => _sn = value; }
-        public string Equipment { get => _eq; set => _eq = value; }
-        public string Aim { get => _aim; set => _aim = value; }
-        public string Name { get => _n; set => _n = value; }
-        public string Group { get => _g; set => _g = value; }
-
-        public ForHTML(string first_name, string second_name, string equipment, string aim, string name, string group)
-        {
-            FirstName = first_name;
-            SecondName = second_name;
-            Equipment = equipment;
-            Aim = aim;
-            Name = name;
-            Group = group;
-        }
-
-
-    }
+    
     public class Science : Drop
     {
         private string type_road;

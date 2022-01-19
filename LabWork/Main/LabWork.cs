@@ -80,5 +80,10 @@ namespace Application
             Hide();
             instrument.Show();
         }
+
+        private void LabWork_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Windows.Forms.Application.Exit();
+        }
     }
 }

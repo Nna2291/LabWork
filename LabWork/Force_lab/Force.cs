@@ -15,7 +15,28 @@ namespace Application
         {
             InitializeComponent();
         }
-
+        private void Check(TextBox value1, TextBox force)
+        {
+            if (value1.Text[value1.Text.IndexOf(",")..].Length <
+                    force.Text.Substring(force.Text.IndexOf(",")).Length)
+            {
+                while (value1.Text[value1.Text.IndexOf(",")..].Length !=
+                   force.Text[force.Text.IndexOf(",")..].Length)
+                {
+                    value1.Text += "0";
+                }
+            }
+            if (value1.Text[value1.Text.IndexOf(",")..].Length >
+                    force.Text[force.Text.IndexOf(",")..].Length)
+            {
+                string text = value1.Text;
+                while (value1.Text[text.IndexOf(",")..].Length !=
+                   force.Text[force.Text.IndexOf(",")..].Length)
+                {
+                    force.Text += "0";
+                }
+            }
+        }
         List<Science> dimension = new();
         DataTable table = new();
 
@@ -29,8 +50,13 @@ namespace Application
             Table.Columns.Add("Число грузов", typeof(string));
             Table.Columns.Add("Сила нормальной реакции опоры N, Н", typeof(string));
             Table.Columns.Add("Сила трения F, H", typeof(string));
+
+            
+
+
             var model = new PlotModel
             {
+                Title = "",
                 PlotAreaBorderColor = OxyColors.White,
                 TextColor = OxyColors.White,
                 TitleColor = OxyColors.White,
@@ -38,11 +64,11 @@ namespace Application
             };
             model.Axes.Add
                 (
-                new LinearAxis
-                {
-                    Position = AxisPosition.Bottom,
-                    Title = "F тр, Н"
-                }
+                    new LinearAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        Title = "F тр, Н"
+                    }
                 );
             model.Axes.Add
                 (
@@ -121,6 +147,10 @@ namespace Application
                 Dimension = new();
             }
             dataGridView1.DataSource = Table;
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
 
         private void update_Click_1(object sender, EventArgs e)
@@ -179,45 +209,8 @@ namespace Application
             }
             try
             {
-                if ((plu_1.Text.Substring(plu_1.Text.IndexOf(",")).Length) >
-                Normal_force.Text.Substring(Normal_force.Text.IndexOf(",")).Length)
-                {
-                    while ((plu_1.Text.Substring(plu_1.Text.IndexOf(",")).Length) !=
-                       Normal_force.Text.Substring(Normal_force.Text.IndexOf(",")).Length)
-                    {
-                        Normal_force.Text += "0";
-                    }
-                }
-
-                if ((plu_2.Text.Substring(plu_2.Text.IndexOf(",")).Length) >
-                Force_tr.Text.Substring(Force_tr.Text.IndexOf(",")).Length)
-                {
-                    while ((plu_2.Text.Substring(plu_2.Text.IndexOf(",")).Length) !=
-                       Force_tr.Text.Substring(Force_tr.Text.IndexOf(",")).Length)
-                    {
-                        Force_tr.Text += "0";
-                    }
-                }
-
-                if ((plu_1.Text.Substring(plu_1.Text.IndexOf(",")).Length) <
-                    Normal_force.Text.Substring(Normal_force.Text.IndexOf(",")).Length)
-                {
-                    while ((plu_1.Text.Substring(plu_1.Text.IndexOf(",")).Length) !=
-                       Normal_force.Text.Substring(Normal_force.Text.IndexOf(",")).Length)
-                    {
-                        plu_1.Text += "0";
-                    }
-                }
-
-                if ((plu_2.Text.Substring(plu_2.Text.IndexOf(",")).Length) <
-                    Force_tr.Text.Substring(Force_tr.Text.IndexOf(",")).Length)
-                {
-                    while ((plu_2.Text.Substring(plu_2.Text.IndexOf(",")).Length) !=
-                       Force_tr.Text.Substring(Force_tr.Text.IndexOf(",")).Length)
-                    {
-                        Force_tr.Text += "0";
-                    }
-                }
+                Check(plu_1, Normal_force);
+                Check(plu_2, Force_tr);
             }
             catch (ArgumentOutOfRangeException)
             {

@@ -85,10 +85,10 @@ namespace Application
                 Aim = mainInfoPanel1.AimText,
                 Equipment = mainInfoPanel1.EquipmentText,
                 Dim = force1.Dimension,
-                Length = tangens1.LengthText,
-                Height = tangens1.HeightText,
-                LengthPogr = tangens1.LengthTextPogr,
-                HeightPogr = tangens1.HeightTextPogr
+                Length = tangens1.LengthTextHtml,
+                Height = tangens1.HeightTextHtml,
+                LengthPogr = tangens1.LengthPogrTextHtml,
+                HeightPogr = tangens1.HeightPogrTextHtml
             });
             string json = JsonConvert.SerializeObject(_data.ToArray());
             File.WriteAllText(filename, json);
@@ -123,7 +123,7 @@ namespace Application
 
         private void Force_work_Load(object sender, EventArgs e)
         {
-
+                
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -194,7 +194,40 @@ namespace Application
                 }
 
             }
+            try
+            {
+                if (tangens1.HeightTextHtml == null & tangens1.LengthTextHtml == null)
+                {
+                    try
+                    {
+                        throw new ScienceException("Не установлена высота или длина");
+                    }
+                    catch (ScienceException)
+                    {
+                        return;
+                    }
+                }
+                string w = tangens1.HeightTextHtml;
+                string y = tangens1.LengthTextHtml;
+                string s = tangens1.HeightPogrTextHtml;
+                string d = tangens1.LengthPogrTextHtml;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                try
+                {
+                    throw new ScienceException("Не установлена высота или длина");
+                }
+                catch (ScienceException)
+                {
+                    return;
+                }
 
+            }
+            string height = tangens1.HeightTextHtml;
+            string length = tangens1.LengthTextHtml;
+            string plu_1 = tangens1.HeightPogrTextHtml;
+            string plu_2 = tangens1.LengthPogrTextHtml;
             Science dim = force1.Dimension[^1];
             double mu_max = Math.Round((dim.Force_graph + dim.Pogr_F) / (dim.Normal_reaction_graph - dim.Pogr_N), 2);
             double mu_min = Math.Round((dim.Force_graph - dim.Pogr_F) / (dim.Normal_reaction_graph + dim.Pogr_N), 2);
@@ -207,6 +240,35 @@ namespace Application
                 \mu_{min} = \frac{" + $"{Math.Round(dim.Force_graph - dim.Pogr_F, 3)} H" + @"}{" + $"{Math.Round(dim.Normal_reaction_graph + dim.Pogr_N, 3)} H" + @"} = " + $"{mu_min}" + @"\text{      }
                 \mu_{avg}=\frac{" + $"{mu_max} + {mu_min}" + @"}{2}=" + $"{mu}" + @"\text{      }\Delta\mu=\frac{" + $"{mu_max} - {mu_min}" + @"}{2}=" + $"{delta}" + @"\text{      }\epsilon_{\mu} = \frac{" + $"{delta}" + @"}{" + $"{mu}" + @"}=" + $"{Math.Round(delta / mu * 100),0}" + @"\text{ %}         
                 }";
+
+
+            double h_max = Convert.ToDouble(height) + Convert.ToDouble(plu_2);
+            double h_min = Convert.ToDouble(height) - Convert.ToDouble(plu_2);
+            double l_max = Convert.ToDouble(length) + Convert.ToDouble(plu_1);
+            double l_min = Convert.ToDouble(length) - Convert.ToDouble(plu_1);
+            double mu_max_tan = Math.Round(h_max / Math.Sqrt(Math.Pow(l_min, 2) - Math.Pow(h_max, 2)), 2, MidpointRounding.AwayFromZero);
+            double mu_min_tan = Math.Round(h_min / Math.Sqrt(Math.Pow(l_max, 2) - Math.Pow(h_min, 2)), 2, MidpointRounding.AwayFromZero);
+            double mu_avg = Math.Round((mu_max_tan + mu_min_tan) / 2, 2, MidpointRounding.AwayFromZero);
+            double delta_mu_fir = Math.Round((mu_max_tan - mu_min_tan) / 2, 5);
+            double delta_mu = Math.Round(delta_mu_fir, 2, MidpointRounding.AwayFromZero);
+            double eps_mu = Math.Round(delta_mu / mu_avg * 100);
+            string latex2 = @"\color{black}{
+            s = \sqrt{l^2-h^2}\text{      }
+            \mu = \tan(\alpha)=\frac{h}{s}\text{      }
+            \mu = \mu_{avg} \pm \Delta\mu\\\\
+            \mu_{max} = \frac{h_{max}}{s_{min}} = \frac{h_{max}}{\sqrt{l_{min}^2-h_{max}^2}}\text{      }
+            \mu_{min} = \frac{h_{min}}{s_{max}} = \frac{h_{min}}{\sqrt{l_{max}^2-h_{min}^2}}\text{      }
+            \mu_{avg} = \frac{\mu_{max}+\mu_{min}}{2}\text{      }
+            \Delta\mu = \frac{\mu_{max}-\mu_{min}}{2}\\\\
+            \epsilon_{\mu} = \frac{\Delta\mu}{\mu} * 100\text{%}\\\\
+
+            \mu_{max} = \frac{" + $"{h_max}" + @"}{\sqrt{" + $"{l_min}" + @"^2-" + $"{h_max}" + @"^2}}\approx" + $"{mu_max_tan}" + @"\text{      }
+            \mu_{min} = \frac{" + $"{h_min}" + @"}{\sqrt{" + $"{l_max}" + @"^2-" + $"{h_min}" + @"^2}}\approx" + $"{mu_min}" + @"\text{      }
+            \mu_{avg} = \frac{" + $"{mu_max_tan}" + @"+" + $"{mu_min_tan}" + @"}{2}\approx" + $"{mu_avg}" + @"\text{      }
+            \Delta\mu = \frac{" + $"{mu_max_tan}" + @"-" + $"{mu_min_tan}" + @"}{2}\approx" + $"{delta_mu}" + @"\\\\
+            \mu = " + $"{mu_avg}" + @" \pm " + $"{delta_mu}" + @"\\\\
+            \epsilon_{\mu} = \frac{" + $"{delta_mu}" + @"}{" + $"{mu_avg}" + @"} * 100\text{%}\approx" + $"{eps_mu}" + @"\text{%}\\\\
+}";
             var parser = new TexFormulaParser();
             try
             {
@@ -214,6 +276,10 @@ namespace Application
                 var pngBytes1 = formula1.RenderToPng(40.0, 0.0, 0.0, "Times New Roman");
                 string fileName1 = @"..\formulaforhtml.png";
                 File.WriteAllBytes(fileName1, pngBytes1);
+                var formula_tan = parser.Parse(latex2);
+                var pngBytes2 = formula_tan.RenderToPng(40.0, 0.0, 0.0, "Times New Roman");
+                string fileName2 = @"..\formulaforhtml_tan.png";
+                File.WriteAllBytes(fileName2, pngBytes2);
             }
             catch (Exception)
             {
@@ -320,7 +386,8 @@ namespace Application
                 var exporter = new SvgExporter { Width = 1000, Height = 600 };
                 exporter.Export(model, stream);
             }
-            Template template = Template.Parse(File.ReadAllText(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, "Force.html")));
+
+            Template template = Template.Parse(File.ReadAllText(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, "Force_lab/Force.html")));
             string js = template.Render(Hash.FromAnonymousObject(new
             {
                 graph = Path.GetFullPath(@"..\gg.svg"),
@@ -333,7 +400,9 @@ namespace Application
                 group = mainInfoPanel1.grouptext,
                 equipment = mainInfoPanel1.EquipmentText,
                 final = mainInfoPanel1.Finaltext,
-
+                length = length,
+                height = height,
+                formula_tan = Path.GetFullPath(@"..\formulaforhtml_tan.png")
             }));
 
             File.WriteAllText(saveFileDialog2.FileName, js);

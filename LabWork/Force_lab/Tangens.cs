@@ -7,6 +7,14 @@ namespace Application
 {
     public partial class Tangens : UserControl
     {
+        public string LengthTextHtml { get => _lengthHtml; set => _lengthHtml = value; }
+        public string HeightPogrTextHtml { get; private set; }
+        public string LengthPogrTextHtml { get; private set; }
+
+        private string _lengthHtml;
+
+        public string HeightTextHtml { get => _heightHtml; set => _heightHtml = value; }
+        private string _heightHtml;
         public string LengthText { get => _length; set => _length = value; }
         private string _length;
 
@@ -132,6 +140,10 @@ namespace Application
             label4.Text = $"h = ({Height.Text} ± {plu_2.Text}), см";
             _height = Height.Text;
             _length = Length.Text;
+            HeightTextHtml = Height.Text;
+            LengthTextHtml = Length.Text;
+            HeightPogrTextHtml = plu_1.Text;
+            LengthPogrTextHtml = plu_2.Text;
         }
 
         private void Tangens_Load(object sender, EventArgs e)
@@ -179,6 +191,7 @@ namespace Application
             \mu_{min} = \frac{" + $"{h_min}" + @"}{\sqrt{" + $"{l_max}" + @"^2-" + $"{h_min}" + @"^2}}\approx" + $"{mu_min}" + @"\\\\
             \mu_{avg} = \frac{" + $"{mu_max}" + @"+" + $"{mu_min}" + @"}{2}\approx" + $"{mu_avg}" + @"\\\\
             \Delta\mu = \frac{" + $"{mu_max}" + @"-" + $"{mu_min}" + @"}{2}\approx" + $"{delta_mu}" + @"\\\\
+            \mu = " + $"{mu_avg}" + @" \pm " + $"{delta_mu}" + @"\\\\
             \epsilon_{\mu} = \frac{" + $"{delta_mu}" + @"}{" + $"{mu_avg}" + @"} * 100\text{%}\approx" + $"{eps_mu}" + @"\text{%}\\\\
 }";
             string fileName = @"..\formula_tangens.png";
@@ -188,6 +201,17 @@ namespace Application
             File.WriteAllBytes(fileName, pngBytes);
             pictureBox1.ImageLocation = fileName;
             pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            label1.Text = null;
+            pictureBox1.Image = null;
+            label4.Text = null;
+            Length.Text = null;
+            Height.Text = null;
+            plu_1.Text = null;
+            plu_2.Text = null;
         }
     }
 }

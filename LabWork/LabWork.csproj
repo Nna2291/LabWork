@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
-
+	
   <ItemGroup>
     <PackageReference Include="DotLiquid" Version="2.2.585" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />

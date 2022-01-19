@@ -71,6 +71,7 @@ namespace Application
             // 
             // regestration1
             // 
+            this.regestration1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.regestration1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.regestration1.Location = new System.Drawing.Point(452, 0);
             this.regestration1.Name = "regestration1";
@@ -85,9 +86,11 @@ namespace Application
             this.ClientSize = new System.Drawing.Size(2712, 1044);
             this.Controls.Add(this.regestration1);
             this.Controls.Add(this.panel1);
-            this.ForeColor = System.Drawing.Color.Coral;
+            this.ForeColor = System.Drawing.Color.Black;
             this.Name = "Instrument";
             this.Text = "Instrument";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Instrument_FormClosing);
+            this.Load += new System.EventHandler(this.Instrument_Load);
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

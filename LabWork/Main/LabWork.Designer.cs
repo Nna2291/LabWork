@@ -81,7 +81,8 @@ namespace Application
             this.Controls.Add(this.button2);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "LabWork";
-            this.Text = "Form1";
+            this.Text = "LabWork";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.LabWork_FormClosing);
             this.Load += new System.EventHandler(this.LabWork_Load);
             this.ResumeLayout(false);
 
