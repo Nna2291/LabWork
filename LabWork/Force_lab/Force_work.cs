@@ -16,10 +16,10 @@ namespace Application
     {
         private string _filename = "";
         public string Filename { get => _filename; set => _filename = value; }
+        public Science Data { get => force1.Dimension[^1]; }
         public Force_work(string file, Labaratory data)
         {
             InitializeComponent();
-
             Filename = file;
             mainInfoPanel1.nametext = data.FirstName;
             mainInfoPanel1.lastnametext = data.LastName;
@@ -27,6 +27,7 @@ namespace Application
             mainInfoPanel1.LabNameText = data.Name;
             mainInfoPanel1.AimText = data.Aim;
             mainInfoPanel1.EquipmentText = data.Equipment;
+            mainInfoPanel1.Finaltext = data.Final;
             force1.Dimension = data.Dim;
             tangens1.LengthText = data.Length;
             tangens1.HeightText = data.Height;
@@ -34,8 +35,15 @@ namespace Application
             tangens1.LengthTextPogr = data.LengthPogr;
             saveFileDialog1.Filter = "Text files(*.lab)|*.lab|All files(*.*)|*.*";
             saveFileDialog2.Filter = "HTML files(*.html)|*.html|All files(*.*)|*.*";
-            button1.Hide();
-            pictureBox1.Hide();
+            try
+            {
+                counter1.Data = Data;
+            }
+            catch (Exception)
+            {
+
+            }
+            
         }
 
         private void force1_Load(object sender, EventArgs e)
@@ -47,10 +55,8 @@ namespace Application
         {
             force1.Show();
             tangens1.Hide();
-            button1.Hide();
-            tangens1.Hide();
-            pictureBox1.Hide();
             mainInfoPanel1.Hide();
+            counter1.Hide();
         }
 
         private void mainInfoPanel1_Load(object sender, EventArgs e)
@@ -61,10 +67,8 @@ namespace Application
         private void InfoButton_Click(object sender, EventArgs e)
         {
             force1.Hide();
+            counter1.Hide();
             tangens1.Hide();
-            button1.Hide();
-            tangens1.Hide();
-            pictureBox1.Hide();
             mainInfoPanel1.Show();
         }
 
@@ -84,6 +88,7 @@ namespace Application
                 Name = mainInfoPanel1.LabNameText,
                 Aim = mainInfoPanel1.AimText,
                 Equipment = mainInfoPanel1.EquipmentText,
+                Final = mainInfoPanel1.Finaltext,
                 Dim = force1.Dimension,
                 Length = tangens1.LengthTextHtml,
                 Height = tangens1.HeightTextHtml,
@@ -106,11 +111,16 @@ namespace Application
         {
             force1.Hide();
             tangens1.Hide();
-            button1.Show();
-            tangens1.Hide();
-            pictureBox1.Show();
             mainInfoPanel1.Hide();
-            ;
+            counter1.Show();
+            try
+            {
+                counter1.Data = Data;
+            }
+            catch (Exception)
+            {
+
+            }
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -123,55 +133,12 @@ namespace Application
 
         private void Force_work_Load(object sender, EventArgs e)
         {
-                
+
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Science trsy = force1.Dimension[^1];
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                try
-                {
-                    throw new ScienceException("Нет измерений");
-                }
-                catch (ScienceException)
-                {
-                    return;
-                }
-            }
-            Science dim = force1.Dimension[^1];
-            double mu_max = Math.Round((dim.Force_graph + dim.Pogr_F) / (dim.Normal_reaction_graph - dim.Pogr_N), 2);
-            double mu_min = Math.Round((dim.Force_graph - dim.Pogr_F) / (dim.Normal_reaction_graph + dim.Pogr_N), 2);
-            double delta = Math.Round((mu_max - mu_min) / 2, 3);
-            double mu = Math.Round((mu_max + mu_min) / 2, 3);
-            string latex = @"\color{white}{
-                \mu = \frac{F_t}{N}\\\\
-                \mu_{max} = \frac{F_{max}}{N_{min}}\text{      }\mu_{min} = \frac{F_{min}}{N_{max}}\text{      }\mu_{avg}=\frac{\mu_{max} + \mu_{min}}{2}\text{      }\Delta\mu=\frac{\mu_{max} - \mu_{min}}{2}\text{      }\epsilon_{\mu} = \frac{\Delta\mu}{\mu}\\\\
-                \mu_{max} = \frac{" + $"{Math.Round(dim.Force_graph + dim.Pogr_F, 3)} H" + @"}{" + $"{Math.Round(dim.Normal_reaction_graph - dim.Pogr_N, 3)} H" + @"} = " + $"{mu_max}" + @"\text{      }
-                \mu_{min} = \frac{" + $"{Math.Round(dim.Force_graph - dim.Pogr_F, 3)} H" + @"}{" + $"{Math.Round(dim.Normal_reaction_graph + dim.Pogr_N, 3)} H" + @"} = " + $"{mu_min}" + @"\text{      }
-                \mu_{avg}=\frac{" + $"{mu_max} + {mu_min}" + @"}{2}=" + $"{mu}" + @"\text{      }\Delta\mu=\frac{" + $"{mu_max} - {mu_min}" + @"}{2}=" + $"{delta}" + @"\text{      }\epsilon_{\mu} = \frac{" + $"{delta}" + @"}{" + $"{mu}" + @"}=" + $"{Math.Round(delta / mu * 100),0}" + @"\text{ %}         
-                }";
-            string fileName = @"..\formula.png";
-
-            var parser = new TexFormulaParser();
-            try
-            {
-                var formula = parser.Parse(latex);
-                var pngBytes = formula.RenderToPng(40.0, 0.0, 0.0, "Times New Roman");
-                File.WriteAllBytes(fileName, pngBytes);
-                pictureBox1.ImageLocation = @"..\formula.png";
-                pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-            }
-            catch (Exception)
-            {
-
-                return;
-            }
-
+            
         }
 
         private void Export_Click(object sender, EventArgs e)
@@ -273,11 +240,11 @@ namespace Application
             try
             {
                 var formula1 = parser.Parse(latex1);
-                var pngBytes1 = formula1.RenderToPng(40.0, 0.0, 0.0, "Times New Roman");
+                var pngBytes1 = formula1.RenderToPng(30.0, 0.0, 0.0, "Times New Roman");
                 string fileName1 = @"..\formulaforhtml.png";
                 File.WriteAllBytes(fileName1, pngBytes1);
                 var formula_tan = parser.Parse(latex2);
-                var pngBytes2 = formula_tan.RenderToPng(40.0, 0.0, 0.0, "Times New Roman");
+                var pngBytes2 = formula_tan.RenderToPng(30.0, 0.0, 0.0, "Times New Roman");
                 string fileName2 = @"..\formulaforhtml_tan.png";
                 File.WriteAllBytes(fileName2, pngBytes2);
             }
@@ -386,8 +353,8 @@ namespace Application
                 var exporter = new SvgExporter { Width = 1000, Height = 600 };
                 exporter.Export(model, stream);
             }
-
-            Template template = Template.Parse(File.ReadAllText(Path.Combine(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName, "Force_lab/Force.html")));
+            Force_HTML file = new();
+            Template template = Template.Parse(file.html);
             string js = template.Render(Hash.FromAnonymousObject(new
             {
                 graph = Path.GetFullPath(@"..\gg.svg"),
@@ -402,6 +369,8 @@ namespace Application
                 final = mainInfoPanel1.Finaltext,
                 length = length,
                 height = height,
+                len_pogr = plu_1,
+                h_pogr = plu_2,
                 formula_tan = Path.GetFullPath(@"..\formulaforhtml_tan.png")
             }));
 
@@ -411,16 +380,19 @@ namespace Application
         private void button2_Click(object sender, EventArgs e)
         {
             force1.Hide();
-            tangens1.Hide();
-            button1.Hide();
+            counter1.Hide();
             tangens1.Show();
-            pictureBox1.Hide();
             mainInfoPanel1.Hide();
         }
 
         private void Force_work_FormClosing(object sender, FormClosingEventArgs e)
         {
             System.Windows.Forms.Application.Exit();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

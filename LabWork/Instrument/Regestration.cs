@@ -151,7 +151,7 @@ namespace Application
                     return;
                 }
             }
-            
+
             Table.Rows.Add($"{value1.Text}±{pogr1.Text}",
                 $"{value2.Text}±{pogr2.Text}");
         }

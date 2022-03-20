@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Windows.Forms;
 
 namespace Application
@@ -10,10 +9,11 @@ namespace Application
         {
             InitializeComponent();
         }
-        
+
         private void button1_Click(object sender, EventArgs e)
         {
             regestration1.Show();
+            analysis1.Hide();
         }
 
         private void Instrument_Load(object sender, EventArgs e)
@@ -24,6 +24,12 @@ namespace Application
         private void Instrument_FormClosing(object sender, FormClosingEventArgs e)
         {
             System.Windows.Forms.Application.Exit();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            regestration1.Hide();
+            analysis1.Show();
         }
     }
 }

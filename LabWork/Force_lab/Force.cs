@@ -51,7 +51,7 @@ namespace Application
             Table.Columns.Add("Сила нормальной реакции опоры N, Н", typeof(string));
             Table.Columns.Add("Сила трения F, H", typeof(string));
 
-            
+
 
 
             var model = new PlotModel
@@ -288,11 +288,6 @@ namespace Application
                    size,
                    size));
 
-                scatterSeries.Points.Add(new ScatterPoint(
-                   values.Normal_reaction_graph + Convert.ToDouble(plu_1.Text),
-                   values.Force_graph + Convert.ToDouble(plu_2.Text),
-                   size,
-                   size));
 
                 scatterSeries.Points.Add(new ScatterPoint(
                    values.Normal_reaction_graph,

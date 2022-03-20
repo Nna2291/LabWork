@@ -40,17 +40,15 @@ namespace Application
             this.back = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.mainInfoPanel1 = new Application.MainInfoPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.counter1 = new Application.Counter();
             this.force1 = new Application.Force();
-            this.button1 = new System.Windows.Forms.Button();
             this.tangens1 = new Application.Tangens();
+            this.mainInfoPanel1 = new Application.MainInfoPanel();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
             this.panelmenu.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panelmenu
@@ -157,15 +155,51 @@ namespace Application
             // panel3
             // 
             this.panel3.Controls.Add(this.mainInfoPanel1);
-            this.panel3.Controls.Add(this.pictureBox1);
+            this.panel3.Controls.Add(this.counter1);
             this.panel3.Controls.Add(this.force1);
-            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.tangens1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel3.Location = new System.Drawing.Point(400, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(2296, 968);
             this.panel3.TabIndex = 15;
+            // 
+            // counter1
+            // 
+            this.counter1.AutoSize = true;
+            this.counter1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.counter1.Data = null;
+            this.counter1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.counter1.Location = new System.Drawing.Point(0, 0);
+            this.counter1.Margin = new System.Windows.Forms.Padding(2);
+            this.counter1.Name = "counter1";
+            this.counter1.Size = new System.Drawing.Size(2296, 968);
+            this.counter1.TabIndex = 7;
+            // 
+            // force1
+            // 
+            this.force1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.force1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.force1.Location = new System.Drawing.Point(0, 0);
+            this.force1.Name = "force1";
+            this.force1.Size = new System.Drawing.Size(2296, 968);
+            this.force1.TabIndex = 0;
+            this.force1.Load += new System.EventHandler(this.force1_Load);
+            // 
+            // tangens1
+            // 
+            this.tangens1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.tangens1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tangens1.HeightText = null;
+            this.tangens1.HeightTextHtml = null;
+            this.tangens1.HeightTextPogr = null;
+            this.tangens1.LengthText = null;
+            this.tangens1.LengthTextHtml = null;
+            this.tangens1.LengthTextPogr = null;
+            this.tangens1.Location = new System.Drawing.Point(0, 0);
+            this.tangens1.Name = "tangens1";
+            this.tangens1.Size = new System.Drawing.Size(2296, 968);
+            this.tangens1.TabIndex = 6;
             // 
             // mainInfoPanel1
             // 
@@ -184,47 +218,6 @@ namespace Application
             this.mainInfoPanel1.TabIndex = 1;
             this.mainInfoPanel1.Load += new System.EventHandler(this.mainInfoPanel1_Load);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(28, 273);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(2265, 689);
-            this.pictureBox1.TabIndex = 5;
-            this.pictureBox1.TabStop = false;
-            // 
-            // force1
-            // 
-            this.force1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.force1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.force1.Location = new System.Drawing.Point(0, 0);
-            this.force1.Name = "force1";
-            this.force1.Size = new System.Drawing.Size(2296, 968);
-            this.force1.TabIndex = 0;
-            this.force1.Load += new System.EventHandler(this.force1_Load);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(1074, 136);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(332, 46);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "Произвести расчеты";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // tangens1
-            // 
-            this.tangens1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.tangens1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tangens1.HeightText = null;
-            this.tangens1.HeightTextPogr = null;
-            this.tangens1.LengthText = null;
-            this.tangens1.LengthTextPogr = null;
-            this.tangens1.Location = new System.Drawing.Point(0, 0);
-            this.tangens1.Name = "tangens1";
-            this.tangens1.Size = new System.Drawing.Size(2296, 968);
-            this.tangens1.TabIndex = 6;
-            // 
             // Force_work
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
@@ -241,7 +234,7 @@ namespace Application
             this.panelmenu.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -261,9 +254,8 @@ namespace Application
         private MainInfoPanel mainInfoPanel1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog2;
         private System.Windows.Forms.Button solving;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private Tangens tangens1;
+        private Counter counter1;
     }
 }

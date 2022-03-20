@@ -143,9 +143,10 @@ namespace Application
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(1552, 0);
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pictureBox1.Location = new System.Drawing.Point(1430, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(718, 1247);
+            this.pictureBox1.Size = new System.Drawing.Size(932, 1247);
             this.pictureBox1.TabIndex = 21;
             this.pictureBox1.TabStop = false;
             // 

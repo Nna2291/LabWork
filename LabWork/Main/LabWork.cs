@@ -63,6 +63,7 @@ namespace Application
                         Name = File,
                         Aim = File,
                         Equipment = File,
+                        Final = File,
                         Length = File,
                         Height = File,
                         LengthPogr = File,

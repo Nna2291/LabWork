@@ -13,7 +13,7 @@ namespace Application
 
         }
     }
-    
+
     public class Science : Drop
     {
         private string type_road;
@@ -56,6 +56,7 @@ namespace Application
         public string Name { get; set; }
         public string Aim { get; set; }
         public string Equipment { get; set; }
+        public string Final { get; set; }
         public List<Science> Dim { get; set; }
         public string Length { get; set; }
         public string Height { get; set; }

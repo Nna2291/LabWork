@@ -29,10 +29,12 @@ namespace Application
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Instrument));
             this.panel1 = new System.Windows.Forms.Panel();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.regestration1 = new Application.Regestration();
+            this.analysis1 = new Application.Analysis();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,6 +58,7 @@ namespace Application
             this.button2.TabIndex = 2;
             this.button2.Text = "Анализ данных";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
@@ -78,6 +81,15 @@ namespace Application
             this.regestration1.Size = new System.Drawing.Size(2260, 1044);
             this.regestration1.TabIndex = 1;
             // 
+            // analysis1
+            // 
+            this.analysis1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.analysis1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.analysis1.Location = new System.Drawing.Point(0, 0);
+            this.analysis1.Name = "analysis1";
+            this.analysis1.Size = new System.Drawing.Size(2712, 1044);
+            this.analysis1.TabIndex = 3;
+            // 
             // Instrument
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
@@ -86,6 +98,7 @@ namespace Application
             this.ClientSize = new System.Drawing.Size(2712, 1044);
             this.Controls.Add(this.regestration1);
             this.Controls.Add(this.panel1);
+            this.Controls.Add(this.analysis1);
             this.ForeColor = System.Drawing.Color.Black;
             this.Name = "Instrument";
             this.Text = "Instrument";
@@ -102,5 +115,6 @@ namespace Application
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
         private Application.Regestration regestration1;
+        private Application.Analysis analysis1;
     }
 }
